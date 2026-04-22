@@ -21,7 +21,7 @@ resource "alicloud_vpc" "default" {
 resource "alicloud_vswitch" "default" {
   vpc_id       = alicloud_vpc.default.id
   cidr_block   = cidrsubnet(alicloud_vpc.default.cidr_block, 8, 2)
-  zone_id      = data.alicloud_dfs_zones.default.zones.0.zone_id
+  zone_id      = data.alicloud_dfs_zones.default.zones[0].zone_id
   vswitch_name = var.name
 }
 
@@ -30,8 +30,8 @@ module "example" {
   source = "../.."
 
   # alicloud_dfs_file_system
-  storage_type     = data.alicloud_dfs_zones.default.zones.0.options.0.storage_type
-  zone_id          = data.alicloud_dfs_zones.default.zones.0.zone_id
+  storage_type     = data.alicloud_dfs_zones.default.zones[0].options[0].storage_type
+  zone_id          = data.alicloud_dfs_zones.default.zones[0].zone_id
   hdfs_name        = "tf_hdfs_name"
   space_capacity   = 1024
   hdfs_description = "The description of DFS file system."
